@@ -1,0 +1,67 @@
+Flash Firmware
+  Connect Wifi Module
+  Flash the .bin File
+  Reboot the Wifi Module
+
+Configure Wifi Module
+  Connect to Wifi "SetSol"
+  Go to IP 192.168.4.1
+
+  Connect to Wifi
+  Give MQTT Server
+
+  Reboot the Wifi Module
+
+Connect the Modules
+  ESP8266 TX to Converter RX
+  ESP8266 RX to Converter TX
+  ESP8266 G to Converter G
+  ESP8266 3.3V to Converter Positive
+
+Note: If you want to program then disconnect the RX wire on the ESP8266
+
+See the Data on MQTT Explorer
+
+Send the Data to Grafana
+  
+Use Grafana + Telegraf + Mosquitto
+
+
+
+
+
+solardata
+1883
+10
+solardata
+
+GDB Debugging: 
+
+find correct .elf file: 
+dir %userprofile%\appdata\*.elf /s/b
+
+run GBD: 
+C:\Users\Raf\AppData\Local\Arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\3.0.4-gcc10.3-1757bed\bin\xtensa-lx106-elf-gdb.exe
+
+apply configuration: 
+set remote hardware-breakpoint-limit 1
+set remote hardware-watchpoint-limit 1
+set remote interrupt-on-connect on
+set remote kill-packet off
+set remote symbol-lookup-packet off
+set remote verbose-resume-packet off
+mem 0x20000000 0x3fefffff ro cache
+mem 0x3ff00000 0x3fffffff rw
+mem 0x40000000 0x400fffff ro cache
+mem 0x40100000 0x4013ffff rw cache
+mem 0x40140000 0x5fffffff ro cache
+mem 0x60000000 0x60001fff rw
+set serial baud 9600
+
+load .elf file: 
+file C:/Users/Raf/appdata/Local/Temp/arduino-sketch-1B10DA46C16FB1CA458F9B05326F166B/Solar2Mqtt_P18_v3.ino.elf
+
+connect to device: 
+target remote \\.\COM5
+
+
